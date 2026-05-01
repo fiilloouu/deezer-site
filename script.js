@@ -1,8 +1,9 @@
-// REMPLACE le nombre ci-dessous par l'ID de ta playlist "Coups de cœur"
-const playlistID = '4443585522'; 
+// Ton Identifiant Utilisateur Deezer
+const userID = '4443585522'; 
 
-// L'URL cible maintenant ta playlist spécifique
-const url = `https://api.deezer.com/playlist/${playlistID}?output=jsonp`;
+// L'URL cible maintenant les morceaux favoris (tracks) de ton profil utilisateur (user)
+// On ajoute limit=50 pour afficher plus que les 10 premiers titres
+const url = `https://api.deezer.com/user/${userID}/tracks?limit=50&output=jsonp`;
 
 function loadFavorites() {
     const script = document.createElement('script');
@@ -14,27 +15,28 @@ function handleResponse(data) {
     const container = document.getElementById('playlist-container');
     container.innerHTML = ''; 
 
-    // Vérification si la playlist existe ou est publique
-    if (!data.tracks) {
-        container.innerHTML = '<p>Erreur : Playlist introuvable. Vérifie qu\'elle est bien en "Publique".</p>';
+    // Vérification en cas d'erreur ou si ton profil est réglé sur "Privé"
+    if (data.error || !data.data || data.data.length === 0) {
+        container.innerHTML = '<p>Erreur : Impossible de charger tes favoris. Assure-toi que ton profil Deezer est réglé sur "Public" dans tes paramètres.</p>';
         return;
     }
 
-    // On parcourt les morceaux de TA playlist
-    data.tracks.data.forEach(track => {
+    // On parcourt les morceaux de tes coups de cœur
+    data.data.forEach(track => {
         const trackElement = document.createElement('div');
         trackElement.className = 'track';
         
+        // On intègre le lecteur complet de Deezer
         trackElement.innerHTML = `
             <img src="${track.album.cover_medium}" alt="Couverture album">
             <h3>${track.title}</h3>
             <p>Artiste : ${track.artist.name}</p>
-            <audio controls src="${track.preview}"></audio>
+            <iframe title="Lecteur Deezer" src="https://widget.deezer.com/widget/light/track/${track.id}" width="100%" height="90" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
         `;
         
         container.appendChild(trackElement);
     });
 }
 
-// Lancement au chargement
+// Lancement au chargement de la page
 loadFavorites();
