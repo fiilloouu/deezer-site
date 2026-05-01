@@ -1,5 +1,5 @@
 // Ton Identifiant Utilisateur Deezer
-const userID = '4443585522'; 
+const userID = '4443585522/loved'; 
 
 // L'URL cible maintenant les morceaux favoris (tracks) de ton profil utilisateur (user)
 // On ajoute limit=50 pour afficher plus que les 10 premiers titres
