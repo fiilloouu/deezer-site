@@ -11,23 +11,24 @@
     <div id="profile-picker">
         <h1>Qui écoute ?</h1>
         <div class="profiles-container">
-            <!-- Profil 1 : Tes Favoris -->
-            <div class="profile-card" onclick="selectProfile('ID_DE_TA_PLAYLIST_PERSO')">
+            <!-- Profil 1 : Tes Favoris (Remplace ID_PERSO par ton ID) -->
+            <div class="profile-card" onclick="selectProfile('ID_DE_TA_PLAYLIST_PERSO', 'Moi')">
                 <img src="https://e-cdns-images.dzcdn.net/images/user/250x250-000000-80-0-0.jpg" alt="Avatar">
-                <p>Mon Profil</p>
+                <p>Moi</p>
             </div>
-            <!-- Profil 2 : Top Hits (Exemple) -->
-            <div class="profile-card" onclick="selectProfile('3155776842')">
+            <!-- Profil 2 : Un autre profil (Exemple : Top Hits) -->
+            <div class="profile-card" onclick="selectProfile('3155776842', 'Hits')">
                 <img src="https://e-cdns-images.dzcdn.net/images/cover/ec914697950c448d6f5195ed8f673f8d/250x250-000000-80-0-0.jpg" alt="Avatar">
                 <p>Top Hits</p>
             </div>
         </div>
+        <button class="login-btn" onclick="openLogin()">Se connecter à Deezer</button>
     </div>
 
     <!-- LE SITE (Caché au début) -->
     <div id="main-site" style="display: none;">
         <button class="back-button" onclick="goBack()">⬅ Changer de profil</button>
-        <h1 id="playlist-title">Ma Musique</h1>
+        <h1 id="user-welcome">Chargement...</h1>
         <div id="playlist-container"></div>
     </div>
 
