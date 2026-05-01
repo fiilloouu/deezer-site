@@ -1,26 +1,30 @@
-// 1. Ton ID de playlist (récupéré avec le bouton partager)
-const playlistID = 'TON_ID_DE_PLAYLIST_ICI'; 
+// Fonction pour choisir un profil
+function selectProfile(playlistID) {
+    // 1. Cacher l'écran de sélection et afficher le site
+    document.getElementById('profile-picker').style.display = 'none';
+    document.getElementById('main-site').style.display = 'block';
 
-const url = `https://api.deezer.com/playlist/${playlistID}?output=jsonp`;
-
-// Fonction pour ouvrir la connexion Deezer dans une petite fenêtre
-function openLogin() {
-    const width = 600;
-    const height = 600;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-    
-    // Ouvre la page de login officielle dans un petit "pop-up"
-    window.open(
-        'https://www.deezer.com/login', 
-        'DeezerLogin', 
-        `width=${width},height=${height},top=${top},left=${left}`
-    );
+    // 2. Charger la musique correspondante
+    loadMusic(playlistID);
 }
 
-function loadFavorites() {
+// Fonction pour revenir à la sélection
+function goBack() {
+    document.getElementById('profile-picker').style.display = 'flex';
+    document.getElementById('main-site').style.display = 'none';
+    document.getElementById('playlist-container').innerHTML = '';
+}
+
+function loadMusic(id) {
+    const url = `https://api.deezer.com/playlist/${id}?output=jsonp&callback=handleResponse`;
+    
+    // Supprimer l'ancien script s'il existe
+    const oldScript = document.getElementById('deezer-script');
+    if (oldScript) oldScript.remove();
+
     const script = document.createElement('script');
-    script.src = `${url}&callback=handleResponse`;
+    script.id = 'deezer-script';
+    script.src = url;
     document.body.appendChild(script);
 }
 
@@ -29,29 +33,19 @@ function handleResponse(data) {
     container.innerHTML = ''; 
 
     if (!data.tracks) {
-        container.innerHTML = '<p>Erreur : Playlist introuvable.</p>';
+        container.innerHTML = '<p>Erreur lors du chargement.</p>';
         return;
     }
 
     data.tracks.data.forEach(track => {
-        const trackElement = document.createElement('div');
-        trackElement.className = 'track';
-        
-        trackElement.innerHTML = `
-            <img src="${track.album.cover_medium}" alt="Couverture album">
+        const div = document.createElement('div');
+        div.className = 'track';
+        div.innerHTML = `
             <h3>${track.title}</h3>
-            <p>Artiste : ${track.artist.name}</p>
-            <iframe title="Lecteur Deezer" 
-                    src="https://widget.deezer.com/widget/light/track/${track.id}" 
-                    width="100%" height="90" frameborder="0" 
-                    allowtransparency="true" 
-                    allow="encrypted-media; clipboard-write">
-            </iframe>
+            <p>${track.artist.name}</p>
+            <iframe src="https://widget.deezer.com/widget/light/track/${track.id}" 
+                    width="100%" height="90" frameborder="0" allow="encrypted-media"></iframe>
         `;
-        
-        container.appendChild(trackElement);
+        container.appendChild(div);
     });
 }
-
-// Lancement au chargement
-loadFavorites();
