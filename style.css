@@ -1,46 +1,72 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212; /* Fond sombre style musique */
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #121212;
     color: white;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Écran de sélection */
+#profile-picker h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.profiles-container {
+    display: flex;
+    gap: 30px;
+}
+
+.profile-card {
+    cursor: pointer;
+    transition: transform 0.3s;
     text-align: center;
+}
+
+.profile-card:hover {
+    transform: scale(1.1);
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    border: 3px solid transparent;
+}
+
+.profile-card:hover img {
+    border-color: white;
+}
+
+.profile-card p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #b3b3b3;
+}
+
+/* Style du site une fois connecté */
+#main-site {
+    width: 100%;
     padding: 20px;
 }
 
-#login-button {
-    background-color: #ef5463; /* Couleur Deezer */
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-bottom: 10px;
-}
-
-#login-button:hover {
-    background-color: #ff7684;
-    transform: scale(1.05);
-}
-
-.info-text {
-    font-size: 12px;
+.back-button {
+    background: none;
+    border: 1px solid #555;
     color: #b3b3b3;
-    margin-bottom: 30px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .track {
     background: #1e1e1e;
     margin: 15px auto;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 450px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-.track img {
-    width: 120px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 500px;
 }
