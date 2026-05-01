@@ -1,10 +1,11 @@
-// Ton Identifiant Utilisateur personnel
-const userID = '4443585522/loved'; 
+// 1. REMPLACE les chiffres ci-dessous par l'ID de ta nouvelle playlist PUBLIQUE
+const playlistID = '15238351883'; 
 
-// L'URL cible tes morceaux favoris (tracks)
-const url = `https://api.deezer.com/user/${userID}/tracks?limit=50&output=jsonp`;
+// On interroge l'API pour récupérer le contenu de cette playlist précise
+const url = `https://api.deezer.com/playlist/${playlistID}?output=jsonp`;
 
 function loadFavorites() {
+    // On crée un élément script pour charger les données sans erreur de sécurité
     const script = document.createElement('script');
     script.src = `${url}&callback=handleResponse`;
     document.body.appendChild(script);
@@ -14,18 +15,23 @@ function handleResponse(data) {
     const container = document.getElementById('playlist-container');
     container.innerHTML = ''; 
 
-    // Si le profil est toujours privé ou introuvable, on affiche une erreur
-    if (data.error || !data.data || data.data.length === 0) {
-        container.innerHTML = '<p>Erreur : Impossible de charger tes favoris. Assure-toi que ton profil Deezer est bien réglé sur "Public".</p>';
+    // Si l'ID est incorrect ou la playlist privée, on affiche un message clair
+    if (!data.tracks || !data.tracks.data) {
+        container.innerHTML = `
+            <p>Erreur : Playlist introuvable.</p>
+            <p>Vérifie que :<br>
+            1. Tu as bien mis l'ID de la PLAYLIST (pas du profil).<br>
+            2. La playlist est réglée sur "PUBLIQUE" dans Deezer.</p>
+        `;
         return;
     }
 
-    // On parcourt tes coups de cœur
-    data.data.forEach(track => {
+    // On parcourt chaque morceau de la liste pour l'afficher proprement
+    data.tracks.data.forEach(track => {
         const trackElement = document.createElement('div');
         trackElement.className = 'track';
         
-        // Le lecteur complet de Deezer
+        // On utilise l'iframe officielle pour avoir le lecteur complet
         trackElement.innerHTML = `
             <img src="${track.album.cover_medium}" alt="Couverture album">
             <h3>${track.title}</h3>
@@ -37,5 +43,5 @@ function handleResponse(data) {
     });
 }
 
-// On lance la fonction au chargement de la page
+// On lance le chargement dès que la page est prête
 loadFavorites();
