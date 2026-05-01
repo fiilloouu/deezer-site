@@ -1,30 +1,26 @@
+/* Style général de la page */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
+    background-color: #f4f4f4;
     text-align: center;
     padding: 20px;
 }
 
-#music-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.music-card {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    width: 200px;
+/* Style pour chaque bloc de musique */
+.track {
+    background: white;
+    margin: 10px auto;
     padding: 15px;
+    border-radius: 8px;
+    max-width: 400px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.music-card img {
-    width: 100%;
-    border-radius: 10px;
+.track img {
+    width: 100px;
+    border-radius: 4px;
 }
 
-audio {
-    width: 100%;
+h1 {
+    color: #333;
 }
