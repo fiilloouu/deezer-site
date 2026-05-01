@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Ma Musique Favorite</title>
-    <!-- On relie le fichier de style CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <h1>Ma Playlist Deezer</h1>
     
-    <!-- C'est ici que les musiques apparaîtront grâce au JavaScript -->
+    <!-- Nouveau bouton de connexion -->
+    <div id="auth-container">
+        <button id="login-button" onclick="openLogin()">Se connecter à Deezer</button>
+        <p class="info-text">Connecte-toi pour écouter tes morceaux en entier !</p>
+    </div>
+    
     <div id="playlist-container">
         <p>Chargement de la musique...</p>
     </div>
 
-    <!-- On relie le fichier JavaScript à la fin pour ne pas ralentir la page -->
     <script src="script.js"></script>
 </body>
 </html>
