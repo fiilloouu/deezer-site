@@ -1,26 +1,46 @@
-/* Style général de la page */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Fond sombre style musique */
+    color: white;
     text-align: center;
     padding: 20px;
 }
 
-/* Style pour chaque bloc de musique */
+#login-button {
+    background-color: #ef5463; /* Couleur Deezer */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+#login-button:hover {
+    background-color: #ff7684;
+    transform: scale(1.05);
+}
+
+.info-text {
+    font-size: 12px;
+    color: #b3b3b3;
+    margin-bottom: 30px;
+}
+
 .track {
-    background: white;
-    margin: 10px auto;
-    padding: 15px;
-    border-radius: 8px;
-    max-width: 400px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: #1e1e1e;
+    margin: 15px auto;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 450px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .track img {
-    width: 100px;
-    border-radius: 4px;
-}
-
-h1 {
-    color: #333;
+    width: 120px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
