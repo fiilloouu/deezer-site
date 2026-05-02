@@ -1,21 +1,24 @@
 // ================= CONFIGURATION =================
-// Remplace par l'ID de ta playlist "mon site" (les 10 chiffres environ)
 const MON_ID_PLAYLIST = '15238351883'; 
 // =================================================
 
-function selectProfile(profil) {
-    let idChoisi = (profil === 'moi') ? MON_ID_PLAYLIST : '3155776842';
-    let nomAffiche = (profil === 'moi') ? "Ma Musique" : "Top Hits France";
-
+function startApp(profil) {
     document.getElementById('profile-picker').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
-    document.getElementById('user-welcome').innerText = nomAffiche;
-    
-    loadMusic(idChoisi);
+    loadData(`https://api.deezer.com/playlist/${MON_ID_PLAYLIST}`);
 }
 
-function loadMusic(id) {
-    const url = `https://api.deezer.com/playlist/${id}?output=jsonp&callback=handleResponse`;
+// Fonction de recherche
+function searchMusic() {
+    const query = document.getElementById('search-input').value;
+    if (query !== "") {
+        document.getElementById('user-welcome').innerText = "Résultats pour : " + query;
+        loadData(`https://api.deezer.com/search?q=${query}`);
+    }
+}
+
+function loadData(baseUrl) {
+    const url = `${baseUrl}?output=jsonp&callback=handleResponse`;
     const oldScript = document.getElementById('deezer-api');
     if (oldScript) oldScript.remove();
 
@@ -29,24 +32,17 @@ function handleResponse(data) {
     const container = document.getElementById('playlist-container');
     container.innerHTML = ''; 
     
-    if (data.tracks) {
-        data.tracks.data.forEach(track => {
+    // L'API répond différemment pour une playlist ou une recherche
+    const tracks = data.tracks ? data.tracks.data : data.data;
+
+    if (tracks) {
+        tracks.forEach(track => {
             const div = document.createElement('div');
             div.className = 'track';
-            
-            // On utilise le widget "dark" (sombre) qui est souvent plus stable
-            // On s'assure que le lien est bien https://widget.deezer.com/widget/dark/track/...
             div.innerHTML = `
-                <h3>${track.title}</h3>
-                <p>${track.artist.name}</p>
-                <iframe 
-                    src="https://widget.deezer.com/widget/dark/track/${track.id}?app_id=1" 
-                    width="100%" 
-                    height="120" 
-                    frameborder="0" 
-                    allowtransparency="true" 
-                    allow="encrypted-media; clipboard-write">
-                </iframe>
+                <h4>${track.title}</h4>
+                <iframe src="https://widget.deezer.com/widget/dark/track/${track.id}" 
+                        width="100%" height="80" frameborder="0" allow="encrypted-media"></iframe>
             `;
             container.appendChild(div);
         });
