@@ -7,31 +7,26 @@
 </head>
 <body>
 
-    <!-- ÉCRAN DE SÉLECTION -->
     <div id="profile-picker">
         <h1>Qui écoute ?</h1>
         <div class="profiles-container">
-            <div class="profile-card" onclick="selectProfile('moi')">
+            <div class="profile-card" onclick="startApp('moi')">
                 <img src="https://www.deezer.com/images/user/default_avatar_250x250.png" alt="Moi">
-                <p>Moi</p>
-            </div>
-            <div class="profile-card" onclick="selectProfile('hits')">
-                <img src="https://e-cdns-images.dzcdn.net/images/cover/ec914697950c448d6f5195ed8f673f8d/250x250-000000-80-0-0.jpg" alt="Hits">
-                <p>Top Hits</p>
+                <p>Mes Favoris</p>
             </div>
         </div>
-
-        <!-- LE BOUTON EST ICI -->
-        <div class="auth-section">
-            <p>Pour écouter en entier :</p>
-            <a href="https://www.deezer.com/login" target="_self" class="login-btn">1. Se connecter sur Deezer</a>
-            <p class="small-text">(Puis utilise la flèche "Retour" de ton navigateur pour revenir ici)</p>
-        </div>
+        <a href="https://www.deezer.com/login" target="_self" class="login-btn">Se connecter à Deezer</a>
     </div>
 
-    <!-- LE SITE (Caché au début) -->
     <div id="main-site" style="display: none;">
-        <button class="back-button" onclick="goBack()">⬅ Changer de profil</button>
+        <button class="back-button" onclick="goBack()">⬅ Retour</button>
+        
+        <!-- BARRE DE RECHERCHE -->
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Chercher un artiste ou une chanson...">
+            <button onclick="searchMusic()">🔍</button>
+        </div>
+
         <h1 id="user-welcome">Ma Musique</h1>
         <div id="playlist-container"></div>
     </div>
