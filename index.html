@@ -7,31 +7,36 @@
 </head>
 <body>
 
-    <!-- ÉCRAN DE SÉLECTION -->
+    <!-- ZONE 1 : ÉCRAN DE SÉLECTION -->
     <div id="profile-picker">
         <h1>Qui écoute ?</h1>
         <div class="profiles-container">
-            <!-- On passe juste le nom, l'ID est géré dans le script -->
-            <div class="profile-card" onclick="startApp('moi')">
+            <div class="profile-card" onclick="showLogin('Moi')">
                 <img src="https://e-cdns-images.dzcdn.net/images/user/250x250-000000-80-0-0.jpg" alt="Avatar">
                 <p>Moi</p>
             </div>
-            <div class="profile-card" onclick="startApp('hits')">
+            <div class="profile-card" onclick="showLogin('Top Hits')">
                 <img src="https://e-cdns-images.dzcdn.net/images/cover/ec914697950c448d6f5195ed8f673f8d/250x250-000000-80-0-0.jpg" alt="Avatar">
                 <p>Top Hits</p>
             </div>
         </div>
-        
-        <div id="auth-section">
-            <button class="login-btn" onclick="openLogin()">Se connecter à Deezer</button>
-            <p id="login-status">Connecte-toi pour écouter tes morceaux en entier !</p>
-        </div>
     </div>
 
-    <!-- LE SITE -->
+    <!-- ZONE 2 : ÉCRAN DE CONNEXION (Sur le même onglet) -->
+    <div id="login-screen" style="display: none;">
+        <h1>Connexion requise</h1>
+        <p>Pour écouter tes 59 titres en entier, tu dois être connecté à Deezer.</p>
+        <a href="https://www.deezer.com/login" target="_self" class="login-link">1. Aller sur Deezer (Se connecter)</a>
+        <br><br>
+        <button class="done-btn" onclick="goToMusic()">2. C'est fait ! Voir ma musique</button>
+        <br>
+        <button class="back-link" onclick="goBack()">Retour aux profils</button>
+    </div>
+
+    <!-- ZONE 3 : LE LECTEUR DE MUSIQUE -->
     <div id="main-site" style="display: none;">
         <button class="back-button" onclick="goBack()">⬅ Changer de profil</button>
-        <h1 id="user-welcome">Chargement...</h1>
+        <h1 id="user-welcome">Ma Musique</h1>
         <div id="playlist-container"></div>
     </div>
 
