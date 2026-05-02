@@ -33,11 +33,20 @@ function handleResponse(data) {
         data.tracks.data.forEach(track => {
             const div = document.createElement('div');
             div.className = 'track';
+            
+            // On utilise le widget "dark" (sombre) qui est souvent plus stable
+            // On s'assure que le lien est bien https://widget.deezer.com/widget/dark/track/...
             div.innerHTML = `
                 <h3>${track.title}</h3>
                 <p>${track.artist.name}</p>
-                <iframe src="https://widget.deezer.com/widget/light/track/${track.id}" 
-                        width="100%" height="90" frameborder="0" allow="encrypted-media"></iframe>
+                <iframe 
+                    src="https://widget.deezer.com/widget/dark/track/${track.id}?app_id=1" 
+                    width="100%" 
+                    height="120" 
+                    frameborder="0" 
+                    allowtransparency="true" 
+                    allow="encrypted-media; clipboard-write">
+                </iframe>
             `;
             container.appendChild(div);
         });
