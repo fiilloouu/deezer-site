@@ -11,13 +11,12 @@
     <div id="profile-picker">
         <h1>Qui écoute ?</h1>
         <div class="profiles-container">
-            <!-- Profil 1 : Remplace l'ID par celui de ta playlist "mon site" -->
-            <div class="profile-card" onclick="selectProfile('TON_ID_PLAYLIST_MON_SITE', 'Moi')">
+            <!-- On passe juste le nom, l'ID est géré dans le script -->
+            <div class="profile-card" onclick="startApp('moi')">
                 <img src="https://e-cdns-images.dzcdn.net/images/user/250x250-000000-80-0-0.jpg" alt="Avatar">
                 <p>Moi</p>
             </div>
-            <!-- Profil 2 : Top Hits -->
-            <div class="profile-card" onclick="selectProfile('3155776842', 'Hits')">
+            <div class="profile-card" onclick="startApp('hits')">
                 <img src="https://e-cdns-images.dzcdn.net/images/cover/ec914697950c448d6f5195ed8f673f8d/250x250-000000-80-0-0.jpg" alt="Avatar">
                 <p>Top Hits</p>
             </div>
@@ -25,7 +24,7 @@
         
         <div id="auth-section">
             <button class="login-btn" onclick="openLogin()">Se connecter à Deezer</button>
-            <p id="login-status">Connecte-toi pour débloquer les versions complètes.</p>
+            <p id="login-status">Connecte-toi pour écouter tes morceaux en entier !</p>
         </div>
     </div>
 
