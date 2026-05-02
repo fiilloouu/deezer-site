@@ -1,8 +1,27 @@
+// Fonction pour ouvrir la connexion
 function openLogin() {
-    window.open('https://www.deezer.com/login', 'Deezer', 'width=600,height=600');
+    // On ouvre Deezer dans une petite fenêtre
+    let loginWindow = window.open('https://www.deezer.com/login', 'Deezer', 'width=600,height=600');
+    
+    document.getElementById('login-status').innerText = "Une fois connecté, ferme la petite fenêtre pour revenir ici.";
+    document.getElementById('login-status').style.color = "#ef5463";
+
+    // ASTUCE : On vérifie toutes les secondes si la fenêtre est fermée
+    let timer = setInterval(function() {
+        if (loginWindow.closed) {
+            clearInterval(timer);
+            // Dès que tu fermes la fenêtre, le site se recharge tout seul !
+            window.location.reload();
+        }
+    }, 1000);
 }
 
+// Sélection du profil
 function selectProfile(playlistID, name) {
+    if (playlistID === 'TON_ID_PLAYLIST_MON_SITE') {
+        alert("N'oublie pas de remplacer TON_ID_PLAYLIST_MON_SITE dans le code HTML !");
+        return;
+    }
     document.getElementById('profile-picker').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
     document.getElementById('user-welcome').innerText = "Playlist de " + name;
