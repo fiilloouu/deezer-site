@@ -1,30 +1,29 @@
 // ================= CONFIGURATION =================
-// Mets ici l'ID de ta playlist "mon site" (les chiffres après /playlist/)
+// Remplace par l'ID de ta playlist "mon site" (vu sur ta capture avec 59 titres)
 const MON_ID_PLAYLIST = '15238351883'; 
 // =================================================
 
-function openLogin() {
-    let loginWindow = window.open('https://www.deezer.com/login', 'Deezer', 'width=600,height=600');
-    document.getElementById('login-status').innerText = "Une fois connecté, ferme cette fenêtre pour valider.";
-    
-    // On recharge le site dès que tu fermes la fenêtre de login
-    let timer = setInterval(function() {
-        if (loginWindow.closed) {
-            clearInterval(timer);
-            window.location.reload();
-        }
-    }, 1000);
+let currentPlaylist = '';
+
+// Étape 1 : Afficher l'écran de login
+function showLogin(profil) {
+    currentPlaylist = (profil === 'Moi') ? MON_ID_PLAYLIST : '3155776842';
+    document.getElementById('profile-picker').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'block';
 }
 
-function startApp(profil) {
-    let idChoisi = (profil === 'moi') ? MON_ID_PLAYLIST : '3155776842';
-    let nomAffiche = (profil === 'moi') ? "Ma Musique" : "Top Hits France";
-
-    document.getElementById('profile-picker').style.display = 'none';
+// Étape 2 : Passer à la musique
+function goToMusic() {
+    document.getElementById('login-screen').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
-    document.getElementById('user-welcome').innerText = nomAffiche;
-    
-    loadMusic(idChoisi);
+    loadMusic(currentPlaylist);
+}
+
+// Retour au début
+function goBack() {
+    document.getElementById('profile-picker').style.display = 'block';
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-site').style.display = 'none';
 }
 
 function loadMusic(id) {
@@ -55,9 +54,4 @@ function handleResponse(data) {
             container.appendChild(div);
         });
     }
-}
-
-function goBack() {
-    document.getElementById('profile-picker').style.display = 'block';
-    document.getElementById('main-site').style.display = 'none';
 }
