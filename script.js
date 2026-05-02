@@ -1,5 +1,5 @@
 // ================= CONFIGURATION =================
-// Mets ici l'ID de ta playlist "mon site" (les chiffres)
+// Remplace par ton ID de playlist (les chiffres dans ton lien Deezer)
 const MON_ID_PLAYLIST = '15238351883'; 
 // =================================================
 
@@ -40,10 +40,18 @@ function handleResponse(data) {
         tracks.forEach(track => {
             const div = document.createElement('div');
             div.className = 'track';
+            // On utilise le lecteur "dark" avec toutes les autorisations (autoplay, encrypted-media)
             div.innerHTML = `
                 <h4>${track.title}</h4>
-                <p style="color:#888; font-size:14px;">${track.artist.name}</p>
-                <iframe src="https://widget.deezer.com/widget/dark/track/${track.id}" width="100%" height="80" frameborder="0" allow="encrypted-media"></iframe>
+                <p style="color:#888; font-size:14px; margin-bottom:10px;">${track.artist.name}</p>
+                <iframe 
+                    src="https://widget.deezer.com/widget/dark/track/${track.id}" 
+                    width="100%" 
+                    height="120" 
+                    frameborder="0" 
+                    allowtransparency="true" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+                </iframe>
             `;
             container.appendChild(div);
         });
