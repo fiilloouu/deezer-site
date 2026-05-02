@@ -1,36 +1,30 @@
-// Fonction pour ouvrir la connexion
-function openLogin() {
-    // On ouvre Deezer dans une petite fenêtre
-    let loginWindow = window.open('https://www.deezer.com/login', 'Deezer', 'width=600,height=600');
-    
-    document.getElementById('login-status').innerText = "Une fois connecté, ferme la petite fenêtre pour revenir ici.";
-    document.getElementById('login-status').style.color = "#ef5463";
+// ================= CONFIGURATION =================
+// Mets ici l'ID de ta playlist "mon site" (les chiffres après /playlist/)
+const MON_ID_PLAYLIST = '15238351883'; 
+// =================================================
 
-    // ASTUCE : On vérifie toutes les secondes si la fenêtre est fermée
+function openLogin() {
+    let loginWindow = window.open('https://www.deezer.com/login', 'Deezer', 'width=600,height=600');
+    document.getElementById('login-status').innerText = "Une fois connecté, ferme cette fenêtre pour valider.";
+    
+    // On recharge le site dès que tu fermes la fenêtre de login
     let timer = setInterval(function() {
         if (loginWindow.closed) {
             clearInterval(timer);
-            // Dès que tu fermes la fenêtre, le site se recharge tout seul !
             window.location.reload();
         }
     }, 1000);
 }
 
-// Sélection du profil
-function selectProfile(playlistID, name) {
-    if (playlistID === 'TON_ID_PLAYLIST_MON_SITE') {
-        alert("N'oublie pas de remplacer TON_ID_PLAYLIST_MON_SITE dans le code HTML !");
-        return;
-    }
+function startApp(profil) {
+    let idChoisi = (profil === 'moi') ? MON_ID_PLAYLIST : '3155776842';
+    let nomAffiche = (profil === 'moi') ? "Ma Musique" : "Top Hits France";
+
     document.getElementById('profile-picker').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
-    document.getElementById('user-welcome').innerText = "Playlist de " + name;
-    loadMusic(playlistID);
-}
-
-function goBack() {
-    document.getElementById('profile-picker').style.display = 'block';
-    document.getElementById('main-site').style.display = 'none';
+    document.getElementById('user-welcome').innerText = nomAffiche;
+    
+    loadMusic(idChoisi);
 }
 
 function loadMusic(id) {
@@ -54,10 +48,16 @@ function handleResponse(data) {
             div.className = 'track';
             div.innerHTML = `
                 <h3>${track.title}</h3>
+                <p>${track.artist.name}</p>
                 <iframe src="https://widget.deezer.com/widget/light/track/${track.id}" 
                         width="100%" height="90" frameborder="0" allow="encrypted-media"></iframe>
             `;
             container.appendChild(div);
         });
     }
+}
+
+function goBack() {
+    document.getElementById('profile-picker').style.display = 'block';
+    document.getElementById('main-site').style.display = 'none';
 }
